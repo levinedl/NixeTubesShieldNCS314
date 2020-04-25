@@ -58,9 +58,9 @@ void setLEDsFromEEPROM()
   G=EEPROM.read(LEDsGreenValueEEPROMAddress);
   B=EEPROM.read(LEDsBlueValueEEPROMAddress);
 
-  analogWrite(RedLedPin, EEPROM.read(LEDsRedValueEEPROMAddress));
-  analogWrite(GreenLedPin, EEPROM.read(LEDsGreenValueEEPROMAddress));
-  analogWrite(BlueLedPin, EEPROM.read(LEDsBlueValueEEPROMAddress));
+  analogWrite(RedLedPin, R);
+  analogWrite(GreenLedPin, G);
+  analogWrite(BlueLedPin, B);
     
   /*
   Serial.println(F("Readed from EEPROM"));
