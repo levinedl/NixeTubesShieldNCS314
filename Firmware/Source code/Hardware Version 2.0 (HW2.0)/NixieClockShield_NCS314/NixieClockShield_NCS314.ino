@@ -58,6 +58,10 @@ const String FirmwareVersion = "018900";
 #include "doIndication314_HW2.x.h"
 #include "dst.h"
 #include <OneWire.h>
+#define HAS_IR_REMOTE 0
+#if !defined(HAS_IR_REMOTE)
+# define HAS_IR_REMOTE 1
+#endif
 //IR remote control /////////// START /////////////////////////////
 #if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
 
@@ -71,6 +75,7 @@ static NMEAGPS  gps;
 static gps_fix  fix;
 static bool dst;
 
+#if HAS_IR_REMOTE
 #include <IRremote.h>
 int RECV_PIN = 4;
 IRrecv irrecv(RECV_PIN);
@@ -151,6 +156,7 @@ class IRButtonState
 IRButtonState IRModeButton(IR_BUTTON_MODE_CODE);
 IRButtonState IRUpButton(IR_BUTTON_UP_CODE);
 IRButtonState IRDownButton(IR_BUTTON_DOWN_CODE);
+#endif /* HAS_IR_REMOTE */
 #endif
 
 
@@ -427,7 +433,7 @@ void setup()
   }
   setTime(RTC_hours, RTC_minutes, RTC_seconds, RTC_day, RTC_month, RTC_year);
 
-#if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
+#if HAS_IR_REMOTE && (defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__))
   irrecv.blink13(false);
   irrecv.enableIRIn(); // Start the receiver
 #endif
@@ -485,6 +491,7 @@ void loop() {
   }
   if (GPS_Sync_Flag==0) GPSCheckValidity();
 
+#if HAS_IR_REMOTE
   IRresults.value = 0;
   if (irrecv.decode(&IRresults)) {
     Serial.println(IRresults.value, HEX);
@@ -502,6 +509,7 @@ void loop() {
   DownButtonState = IRDownButton.checkButtonState(IRresults.value);
   if (DownButtonState == 1) Serial.println("Down short");
   if (DownButtonState == -1) Serial.println("Down long....");
+#endif /* HAS_IR_REMOTE */
 #else
   ModeButtonState = 0;
   UpButtonState = 0;
