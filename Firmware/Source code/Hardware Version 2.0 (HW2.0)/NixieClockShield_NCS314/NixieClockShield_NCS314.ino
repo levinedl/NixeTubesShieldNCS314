@@ -981,10 +981,9 @@ void injectDigits(byte b, int value)
 bool isValidDate()
 {
   int days[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-  if (value[DateYearIndex] % 4 == 0) days[1] = 29;
-  if (value[DateDayIndex] > days[value[DateMonthIndex] - 1]) return false;
-  else return true;
-
+  const int year = value[DateYearIndex];
+  if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) days[1] = 29;
+  return value[DateDayIndex] <= days[value[DateMonthIndex] - 1];
 }
 
 byte default_dur = 4;
