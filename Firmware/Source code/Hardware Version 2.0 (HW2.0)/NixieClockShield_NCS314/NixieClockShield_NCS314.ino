@@ -741,7 +741,7 @@ void loop() {
       break;
     case DateIndex: //date mode
       if (!transactionInProgress) stringToDisplay = updateDateString();
-      dotPattern = B01000000; //turn on lower dots
+      dotPattern = B11000000; //turn on upper and lower dots
       checkAlarmTime();
       blankMask = B00000000;
       break;
