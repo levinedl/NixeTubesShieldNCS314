@@ -1328,10 +1328,10 @@ float getTemperature (boolean bTempFormat)
 void SyncWithGPS()
 {
     //tone1.play(2000,100);
-    Serial.println(F("Updating time..."));
-    Serial.println(fix.dateTime.hours);
-    Serial.println(fix.dateTime.minutes);
-    Serial.println(fix.dateTime.seconds);
+    Serial.print(F("Updating time... "));
+    Serial.print(PreZero(fix.dateTime.hours)); Serial.print(":");
+    Serial.print(PreZero(fix.dateTime.minutes)); Serial.print(":");
+    Serial.println(PreZero(fix.dateTime.seconds));
 
     //setTime(GPS_Date_Time.GPS_hours, GPS_Date_Time.GPS_minutes, GPS_Date_Time.GPS_seconds, GPS_Date_Time.GPS_day, GPS_Date_Time.GPS_mounth, GPS_Date_Time.GPS_year % 1000);
     setTime(fix.dateTime.hours, fix.dateTime.minutes, fix.dateTime.seconds, fix.dateTime.date, fix.dateTime.month, fix.dateTime.year);
