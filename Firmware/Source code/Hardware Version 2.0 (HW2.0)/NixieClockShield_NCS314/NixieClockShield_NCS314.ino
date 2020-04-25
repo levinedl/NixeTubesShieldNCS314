@@ -735,7 +735,7 @@ void loop() {
   {
     case TimeIndex: //time mode
       if (!transactionInProgress) stringToDisplay = updateDisplayString();
-      doDotBlink();
+      dotPattern = B00000000; //turn off dots
       checkAlarmTime();
       blankMask = B00000000;
       break;
