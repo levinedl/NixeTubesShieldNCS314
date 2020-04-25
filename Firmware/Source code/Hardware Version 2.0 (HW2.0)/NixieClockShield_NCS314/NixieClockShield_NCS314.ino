@@ -62,6 +62,7 @@ const String FirmwareVersion = "018900";
 #if !defined(HAS_IR_REMOTE)
 # define HAS_IR_REMOTE 1
 #endif
+#define DISPLAY_TEMP_TENTHS 1
 //IR remote control /////////// START /////////////////////////////
 #if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
 
@@ -1386,9 +1387,15 @@ String updateTemperatureString(float fDegrees)
     } else
     {
       strTemp = "0" + String(abs(iDegrees)) + "0";
+#if defined(DISPLAY_TEMP_TENTHS)
+      if (abs(iDegrees) < 1000) strTemp = "00" + String(abs(iDegrees)) + "0";
+      if (abs(iDegrees) < 100) strTemp = "000" + String(abs(iDegrees)) + "0";
+      if (abs(iDegrees) < 10) strTemp = "0000" + String(abs(iDegrees)) + "0";
+#else  /* ! DISPLAY_TEMP_TENTHS */
       if (abs(iDegrees) < 1000) strTemp = "00" + String(abs(iDegrees) / 10) + "00";
       if (abs(iDegrees) < 100) strTemp = "000" + String(abs(iDegrees) / 10) + "00";
       if (abs(iDegrees) < 10) strTemp = "0000" + String(abs(iDegrees) / 10) + "00";
+#endif /* ! DISPLAY_TEMP_TENTHS */
     }
 
 #ifdef tubes8
