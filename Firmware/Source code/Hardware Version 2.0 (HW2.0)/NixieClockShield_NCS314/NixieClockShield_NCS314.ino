@@ -519,7 +519,7 @@ void loop() {
 
   p = playmusic(p);
 
-  if ((millis() - prevTime4FireWorks) > (unsigned int) LEDsDelay)
+  if ((millis() - prevTime4FireWorks) > 4 * (unsigned int) LEDsDelay)
   {
     rotateFireWorks(); //change color (by 1 step)
     prevTime4FireWorks = millis();
