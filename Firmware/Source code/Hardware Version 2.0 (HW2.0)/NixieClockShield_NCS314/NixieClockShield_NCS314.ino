@@ -58,11 +58,9 @@ const String FirmwareVersion = "018900";
 #include "doIndication314_HW2.x.h"
 #include "dst.h"
 #include <OneWire.h>
-#define HAS_IR_REMOTE 0
 #if !defined(HAS_IR_REMOTE)
 # define HAS_IR_REMOTE 1
 #endif
-#define DISPLAY_TEMP_TENTHS 1
 //IR remote control /////////// START /////////////////////////////
 #if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
 
